@@ -1,0 +1,35 @@
+﻿<Page
+    x:Class="MediaFollower.Views.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:winui="using:Microsoft.UI.Xaml.Controls"
+    xmlns:vm="using:MediaFollower.ViewModels"
+    xmlns:local="using:MediaFollower.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    winui:BackdropMaterial.ApplyToRootOrPageBackground="True">
+
+    <Page.DataContext>
+        <vm:MainViewModel/>
+    </Page.DataContext>
+
+    <Page.Resources>
+        <Style TargetType="StackPanel" x:Key="HeaderStyle">
+            <Setter Property="Margin" Value="20,20,0,0"/>
+        </Style>
+    </Page.Resources>
+
+    <StackPanel Orientation="Vertical" Spacing="20">
+        <StackPanel Orientation="Horizontal" Spacing="20" Style="{StaticResource HeaderStyle}">
+            <PersonPicture ProfilePicture="{Binding UserPicture}" Width="64"/>
+            <TextBlock Style="{StaticResource TitleTextBlockStyle}" VerticalAlignment="Center">
+                <Run Text="Bonjour,"/>
+                <Run Text="{Binding UserName}"/>
+            </TextBlock>
+        </StackPanel>
+
+        <ListView ScrollViewer.HorizontalScrollMode="Enabled" ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                  ScrollViewer.VerticalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollMode="Disabled"/>
+    </StackPanel>
+</Page>
