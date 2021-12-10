@@ -1,0 +1,56 @@
+﻿<Page
+    x:Class="MediaFollower.Views.MediaSummaryPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:MediaFollower.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:winui="using:Microsoft.UI.Xaml.Controls"
+    xmlns:converters="using:MediaFollower.Converters"
+    mc:Ignorable="d"
+    Background="Transparent">
+
+    <Page.Resources>
+        <Style x:Key="RootGrid" TargetType="Grid">
+            <Style.Setters>
+                <Setter Property="Margin" Value="10,10,10,10"/>
+            </Style.Setters>
+        </Style>
+        <Style x:Key="CardStyle" TargetType="StackPanel">
+            <Style.Setters>
+                <Setter Property="Background" Value="{ThemeResource LayerFillColorDefaultBrush}"/>
+                <Setter Property="CornerRadius" Value="8"/>
+            </Style.Setters>
+        </Style>
+
+        <converters:StringToUriConverter x:Name="StringToUriConverter"/>
+    </Page.Resources>
+
+    <StackPanel>
+        <Button x:Name="BackButton" Click="BackButton_Click">
+            <SymbolIcon Symbol="Back"/>
+        </Button>
+        <Grid Margin="10,10,10,10" VerticalAlignment="Stretch" ColumnSpacing="20" RowSpacing="20">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+            <StackPanel x:Name="MediaPoster" Orientation="Vertical" Width="400" Grid.Row="0" Grid.Column="0" Style="{StaticResource CardStyle}">
+                <Border CornerRadius="4">
+                    <Image x:Name="PosterImage"/>
+                </Border>
+                <TextBlock TextAlignment="Center" FontSize="20" x:Name="MediaTitle" TextWrapping="WrapWholeWords"/>
+            </StackPanel>
+            <StackPanel Grid.Column="1" Grid.Row="0" Style="{StaticResource CardStyle}">
+                
+            </StackPanel>
+            <StackPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Style="{StaticResource CardStyle}">
+                <TextBlock Text="test"/>
+            </StackPanel>
+        </Grid>
+    </StackPanel>
+</Page>

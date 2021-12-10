@@ -5,13 +5,20 @@
     <IsPublishable>True</IsPublishable>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <ProduceReferenceAssembly>True</ProduceReferenceAssembly>
-    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <GenerateDocumentationFile>False</GenerateDocumentationFile>
     <Authors>Clément Vicart</Authors>
     <Description>Library providing REST Client for the TMDB API</Description>
+    <PackageProjectUrl>https://github.com/xolider/MediaFollower/tree/main/TMDBAPI</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/xolider/MediaFollower/tree/main/TMDBAPI</RepositoryUrl>
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="RestSharp" Version="106.13.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MediaFollower.Common\MediaFollower.Common.csproj" />
   </ItemGroup>
 
 </Project>

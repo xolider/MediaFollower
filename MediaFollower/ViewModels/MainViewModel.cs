@@ -1,11 +1,19 @@
-﻿using MediaFollower.MVVM;
+﻿using MediaFollower.Models;
+using MediaFollower.MVVM;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.System;
 using Windows.UI.Xaml.Media.Imaging;
+using MediaFollower.Extensions;
+using System.Diagnostics;
+using System.Windows.Input;
+using Windows.UI.Core;
+using Windows.ApplicationModel.Core;
+using Windows.System.Threading;
 
 namespace MediaFollower.ViewModels
 {
@@ -33,9 +41,75 @@ namespace MediaFollower.ViewModels
             }
         }
 
-        public MainViewModel()
+        private string _test;
+        public string Test
         {
+            get => _test;
+            set
+            {
+                _test = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        private bool _popularsLoading = true;
+        public bool PopularsLoading
+        {
+            get => _popularsLoading;
+            set
+            {
+                _popularsLoading = value;
+                RaisePropertyChanged();
+                _popularsLoadMoreCommand.RaiseCanExecute();
+            }
+        }
+
+        private bool _topRatedLoading = true;
+        public bool TopRatedLoading
+        {
+            get => _topRatedLoading;
+            set
+            {
+                _topRatedLoading = value;
+                RaisePropertyChanged();
+                _topRatedLoadMoreCommand.RaiseCanExecute();
+            }
+        }
+
+        private ObservableCollection<Movie> _popularMovies = new ObservableCollection<Movie>();
+        public ObservableCollection<Movie> PopularMovies => _popularMovies;
+
+        private ObservableCollection<Movie> _topRatedMovies = new ObservableCollection<Movie>();
+        public ObservableCollection<Movie> TopRatedMovies => _topRatedMovies;
+
+        private CommandBase _popularsLoadMoreCommand;
+        public CommandBase PopularsLoadMoreCommand => _popularsLoadMoreCommand;
+
+        private CommandBase _topRatedLoadMoreCommand;
+        public CommandBase TopRatedLoadMoreCommand => _topRatedLoadMoreCommand;
+
+        private int _popularsPage = 1;
+        private int _topRatedPage = 1;
+
+        public MainViewModel() : base()
+        {
+            _popularsLoadMoreCommand = new CommandBase(p => !_popularsLoading, p =>
+            {
+                PopularsLoading = true;
+                _popularsPage++;
+                SetPopularMovies();
+            });
+
+            _topRatedLoadMoreCommand = new CommandBase(p => !_topRatedLoading, p =>
+            {
+                TopRatedLoading = true;
+                _topRatedPage++;
+                SetTopRatedMovies();
+            });
+
             SetUserName();
+            SetPopularMovies();
+            SetTopRatedMovies();
         }
 
         private async void SetUserName()
@@ -54,6 +128,20 @@ namespace MediaFollower.ViewModels
                 bitImage.SetSource(stream);
                 UserPicture = bitImage;
             }
+        }
+
+        private async void SetPopularMovies()
+        {
+            var movies = await Api.GetPopulars<Movie>(_popularsPage, UserLanguage);
+            _popularMovies.AddRange(movies.Results);
+            PopularsLoading = false;
+        }
+
+        private async void SetTopRatedMovies()
+        {
+            var movies = await Api.GetTopRated<Movie>(_topRatedPage, UserLanguage);
+            _topRatedMovies.AddRange(movies.Results);
+            TopRatedLoading = false;
         }
     }
 }

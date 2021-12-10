@@ -7,15 +7,15 @@
   IgnorableNamespaces="uap mp">
 
   <Identity
-    Name="709b7612-f075-436b-8633-ced068ff54de"
-    Publisher="CN=1882721"
-    Version="1.0.0.0" />
+    Name="18927ClmentVicart.MediaFollower"
+    Publisher="CN=64454EDD-E976-4B26-ACAD-70EE0BF04896"
+    Version="1.0.1.0" />
 
-  <mp:PhoneIdentity PhoneProductId="709b7612-f075-436b-8633-ced068ff54de" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
+  <mp:PhoneIdentity PhoneProductId="c215fbcb-df7f-496c-ba10-a9284c880f70" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
   <Properties>
     <DisplayName>MediaFollower</DisplayName>
-    <PublisherDisplayName>1882721</PublisherDisplayName>
+    <PublisherDisplayName>Clément Vicart</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
 
@@ -37,8 +37,9 @@
         Square44x44Logo="Assets\Square44x44Logo.png"
         Description="MediaFollower"
         BackgroundColor="transparent">
-        <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png"/>
+        <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png" Square71x71Logo="Assets\SmallTile.png" Square310x310Logo="Assets\LargeTile.png"/>
         <uap:SplashScreen Image="Assets\SplashScreen.png" />
+        <uap:LockScreen BadgeLogo="Assets\BadgeLogo.png" Notification="badge"/>
       </uap:VisualElements>
     </Application>
   </Applications>

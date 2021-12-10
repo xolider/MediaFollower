@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MediaFollower.Common\MediaFollower.Common.csproj" />
+    <ProjectReference Include="..\MediaFollower.Models\MediaFollower.Models.csproj" />
+    <ProjectReference Include="..\TMDBAPI\TMDBAPI.csproj" />
+  </ItemGroup>
+
+</Project>

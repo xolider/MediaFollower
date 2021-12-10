@@ -5,9 +5,11 @@ VisualStudioVersion = 17.0.31919.166
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MediaFollower", "MediaFollower\MediaFollower.csproj", "{20D88E71-9D85-439D-A348-EDF876D8BE84}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TMDBAPI", "TMDBAPI\TMDBAPI.csproj", "{B4F1F43C-EC1C-4E50-9053-2DA8BA1E9A29}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TMDBAPI", "TMDBAPI\TMDBAPI.csproj", "{B4F1F43C-EC1C-4E50-9053-2DA8BA1E9A29}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MediaFollower.Models", "MediaFollower.Models\MediaFollower.Models.csproj", "{8BEB5D84-673B-4DFC-83D4-E3E991C426B3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MediaFollower.Models", "MediaFollower.Models\MediaFollower.Models.csproj", "{8BEB5D84-673B-4DFC-83D4-E3E991C426B3}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MediaFollower.Common", "MediaFollower.Common\MediaFollower.Common.csproj", "{7ED97985-E757-4E71-87AE-0FF60864C0E7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -93,6 +95,26 @@ Global
 		{8BEB5D84-673B-4DFC-83D4-E3E991C426B3}.Release|x64.Build.0 = Release|Any CPU
 		{8BEB5D84-673B-4DFC-83D4-E3E991C426B3}.Release|x86.ActiveCfg = Release|Any CPU
 		{8BEB5D84-673B-4DFC-83D4-E3E991C426B3}.Release|x86.Build.0 = Release|Any CPU
+		{7ED97985-E757-4E71-87AE-0FF60864C0E7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7ED97985-E757-4E71-87AE-0FF60864C0E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7ED97985-E757-4E71-87AE-0FF60864C0E7}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{7ED97985-E757-4E71-87AE-0FF60864C0E7}.Debug|ARM.Build.0 = Debug|Any CPU
+		{7ED97985-E757-4E71-87AE-0FF60864C0E7}.Debug|ARM64.ActiveCfg = Debug|Any CPU
+		{7ED97985-E757-4E71-87AE-0FF60864C0E7}.Debug|ARM64.Build.0 = Debug|Any CPU
+		{7ED97985-E757-4E71-87AE-0FF60864C0E7}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{7ED97985-E757-4E71-87AE-0FF60864C0E7}.Debug|x64.Build.0 = Debug|Any CPU
+		{7ED97985-E757-4E71-87AE-0FF60864C0E7}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{7ED97985-E757-4E71-87AE-0FF60864C0E7}.Debug|x86.Build.0 = Debug|Any CPU
+		{7ED97985-E757-4E71-87AE-0FF60864C0E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7ED97985-E757-4E71-87AE-0FF60864C0E7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7ED97985-E757-4E71-87AE-0FF60864C0E7}.Release|ARM.ActiveCfg = Release|Any CPU
+		{7ED97985-E757-4E71-87AE-0FF60864C0E7}.Release|ARM.Build.0 = Release|Any CPU
+		{7ED97985-E757-4E71-87AE-0FF60864C0E7}.Release|ARM64.ActiveCfg = Release|Any CPU
+		{7ED97985-E757-4E71-87AE-0FF60864C0E7}.Release|ARM64.Build.0 = Release|Any CPU
+		{7ED97985-E757-4E71-87AE-0FF60864C0E7}.Release|x64.ActiveCfg = Release|Any CPU
+		{7ED97985-E757-4E71-87AE-0FF60864C0E7}.Release|x64.Build.0 = Release|Any CPU
+		{7ED97985-E757-4E71-87AE-0FF60864C0E7}.Release|x86.ActiveCfg = Release|Any CPU
+		{7ED97985-E757-4E71-87AE-0FF60864C0E7}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

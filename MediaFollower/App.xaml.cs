@@ -1,4 +1,8 @@
-﻿using MediaFollower.Views;
+﻿using MediaFollower.Common;
+using MediaFollower.Views;
+using Microsoft.AppCenter;
+using Microsoft.AppCenter.Analytics;
+using Microsoft.AppCenter.Crashes;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -6,8 +10,12 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
+using Windows.ApplicationModel.Core;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI;
+using Windows.UI.Core;
+using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -23,6 +31,7 @@ namespace MediaFollower
     /// </summary>
     sealed partial class App : Application
     {
+        public static ILocalStorage LocalStorage { get; private set; } = new LocalStorage.LocalStorage();
         /// <summary>
         /// Initialise l'objet d'application de singleton.  Il s'agit de la première ligne du code créé
         /// à être exécutée. Elle correspond donc à l'équivalent logique de main() ou WinMain().
@@ -31,6 +40,8 @@ namespace MediaFollower
         {
             this.InitializeComponent();
             this.Suspending += OnSuspending;
+
+            AppCenter.Start("d4e2fb01-d9dd-48f9-a4f7-5a794b0305f9", typeof(Analytics), typeof(Crashes));
         }
 
         /// <summary>
@@ -40,6 +51,13 @@ namespace MediaFollower
         /// <param name="e">Détails concernant la requête et le processus de lancement.</param>
         protected override void OnLaunched(LaunchActivatedEventArgs e)
         {
+            var coreTitleBar = CoreApplication.GetCurrentView().TitleBar;
+            coreTitleBar.ExtendViewIntoTitleBar = true;
+
+            var titleBar = ApplicationView.GetForCurrentView().TitleBar;
+            titleBar.ButtonBackgroundColor = Colors.Transparent;
+            titleBar.ButtonInactiveBackgroundColor = Colors.Transparent;
+
             Frame rootFrame = Window.Current.Content as Frame;
 
             // Ne répétez pas l'initialisation de l'application lorsque la fenêtre comporte déjà du contenu,
@@ -50,6 +68,7 @@ namespace MediaFollower
                 rootFrame = new Frame();
 
                 rootFrame.NavigationFailed += OnNavigationFailed;
+                rootFrame.IsNavigationStackEnabled = true;
 
                 if (e.PreviousExecutionState == ApplicationExecutionState.Terminated)
                 {
