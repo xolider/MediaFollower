@@ -6,9 +6,14 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:winui="using:Microsoft.UI.Xaml.Controls"
+    xmlns:vm="using:MediaFollower.ViewModels"
     xmlns:converters="using:MediaFollower.Converters"
     mc:Ignorable="d"
-    Background="Transparent">
+    winui:BackdropMaterial.ApplyToRootOrPageBackground="True">
+
+    <Page.DataContext>
+        <vm:MediaSummaryViewModel/>
+    </Page.DataContext>
 
     <Page.Resources>
         <Style x:Key="RootGrid" TargetType="Grid">
@@ -27,29 +32,35 @@
     </Page.Resources>
 
     <StackPanel>
-        <Button x:Name="BackButton" Click="BackButton_Click">
-            <SymbolIcon Symbol="Back"/>
-        </Button>
-        <Grid Margin="10,10,10,10" VerticalAlignment="Stretch" ColumnSpacing="20" RowSpacing="20">
+        <Grid x:Name="TitleBar">
+            <Rectangle Fill="Transparent" x:Name="MainTitleBar"/>
+            <StackPanel Orientation="Horizontal">
+                <Button x:Name="BackButton" Click="BackButton_Click">
+                    <SymbolIcon Symbol="Back"/>
+                </Button>
+                <TextBlock Margin="10,0" FontSize="12" FontWeight="Medium" Text="MediaFollower" VerticalAlignment="Center"/>
+            </StackPanel>
+        </Grid>
+        <Grid Margin="10,20,10,10" VerticalAlignment="Stretch" ColumnSpacing="20" RowSpacing="20">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="auto"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
-                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <StackPanel x:Name="MediaPoster" Orientation="Vertical" Width="400" Grid.Row="0" Grid.Column="0" Style="{StaticResource CardStyle}">
                 <Border CornerRadius="4">
                     <Image x:Name="PosterImage"/>
                 </Border>
-                <TextBlock TextAlignment="Center" FontSize="20" x:Name="MediaTitle" TextWrapping="WrapWholeWords"/>
+                <TextBlock TextAlignment="Center" Margin="0,5" FontSize="20" x:Name="MediaTitle" TextWrapping="WrapWholeWords"/>
             </StackPanel>
             <StackPanel Grid.Column="1" Grid.Row="0" Style="{StaticResource CardStyle}">
-                
+                <TextBlock Margin="10,10,0,10" Style="{StaticResource TitleTextBlockStyle}" x:Uid="Summary"/>
+                <TextBlock TextAlignment="Justify" Margin="10,0" Text="{Binding Summary}" TextWrapping="Wrap"/>
             </StackPanel>
             <StackPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Style="{StaticResource CardStyle}">
-                <TextBlock Text="test"/>
             </StackPanel>
         </Grid>
     </StackPanel>

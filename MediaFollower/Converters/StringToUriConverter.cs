@@ -14,13 +14,14 @@ namespace MediaFollower.Converters
 {
     internal class StringToUriConverter : IValueConverter
     {
-        private const string _baseUri = "https://image.tmdb.org/t/p/original";
+        private const string _baseUri = "https://image.tmdb.org/t/p/w500";
 
         private ILocalStorage _localStorage = App.LocalStorage;
 
         public object Convert(object value, Type targetType, object parameter, string language)
         {
             string path = value as string;
+            /*
             path = path.Substring(1, path.Length - 1);
             if(_localStorage.IsCached(path, StorageFoldersEnum.IMAGES))
             {
@@ -31,7 +32,8 @@ namespace MediaFollower.Converters
                 (((Window.Current.Content as Frame).Content as Page).DataContext as ViewModelBase).DownloadAndCache(_baseUri, path);
                 path = _baseUri + "/" + path;
             }
-            return new BitmapImage(new Uri(path));
+            */
+            return new BitmapImage(new Uri(_baseUri + path));
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)

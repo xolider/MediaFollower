@@ -117,14 +117,38 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="About.Text" xml:space="preserve">
+    <value>A propos</value>
+  </data>
+  <data name="AboutTitle.Title" xml:space="preserve">
+    <value>A propos</value>
+  </data>
+  <data name="Authors.Text" xml:space="preserve">
+    <value>Auteurs:</value>
+  </data>
   <data name="Hello.Text" xml:space="preserve">
     <value>Bonjour</value>
   </data>
   <data name="LoadMore.Text" xml:space="preserve">
     <value>Charger plus d'éléments</value>
   </data>
+  <data name="Name.Text" xml:space="preserve">
+    <value>Nom:</value>
+  </data>
   <data name="PopularMovies.Text" xml:space="preserve">
     <value>Films populaires</value>
+  </data>
+  <data name="SearchBox.PlaceholderText" xml:space="preserve">
+    <value>Rechercher (Bientôt)</value>
+  </data>
+  <data name="Settings.Text" xml:space="preserve">
+    <value>Paramètres (Bientôt)</value>
+  </data>
+  <data name="SpecialThanks.Text" xml:space="preserve">
+    <value>Remerciements:</value>
+  </data>
+  <data name="Summary.Text" xml:space="preserve">
+    <value>Résumé</value>
   </data>
   <data name="TopRatedMovies.Text" xml:space="preserve">
     <value>Les mieux notés</value>

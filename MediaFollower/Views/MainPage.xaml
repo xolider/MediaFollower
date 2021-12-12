@@ -8,7 +8,7 @@
     xmlns:models="using:MediaFollower.Models"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:converters="using:MediaFollower.Converters"
+    xmlns:converters="using:MediaFollower.Converters" xmlns:components="using:MediaFollower.Views.Components"
     mc:Ignorable="d"
     winui:BackdropMaterial.ApplyToRootOrPageBackground="True">
 
@@ -22,30 +22,30 @@
         </Style>
 
         <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
-        <converters:StringToUriConverter x:Key="StringToUriConverter"/>
-
-        <Style TargetType="ListView" x:Key="MediaContentListViewStyle">
-            <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto"/>
-            <Setter Property="ScrollViewer.HorizontalScrollMode" Value="Enabled"/>
-            <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Disabled"/>
-            <Setter Property="ScrollViewer.VerticalScrollMode" Value="Disabled"/>
-            <Setter Property="SelectionMode" Value="None"/>
-            <Setter Property="Background" Value="{ThemeResource LayerFillColorDefaultBrush}"/>
-            <Setter Property="CornerRadius" Value="8"/>
-            <Setter Property="Margin" Value="0,0,10,0"/>
-            <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="BorderBrush" Value="{ThemeResource CardStrokeColorDefaultBrush}"/>
-            <Setter Property="Padding" Value="15"/>
-        </Style>
 
     </Page.Resources>
 
     <Grid RowSpacing="20" x:Name="RootPanel">
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
-        <Grid Style="{StaticResource HeaderStyle}" ColumnSpacing="10" Grid.Row="0">
+        <Grid Grid.Row="0" x:Name="TitleBar">
+            <Rectangle Fill="Transparent" x:Name="MainTitleBar"/>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="auto"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="MediaFollower" FontSize="12" Margin="10,0" FontWeight="Medium" VerticalAlignment="Center"/>
+                <AutoSuggestBox QueryIcon="Find" x:Uid="SearchBox" Grid.Column="1" Width="400" VerticalAlignment="Center" IsEnabled="False"/>
+                <Rectangle x:Name="RightMask" Fill="Transparent" Grid.Column="2"/>
+            </Grid>
+        </Grid>
+        <Grid Style="{StaticResource HeaderStyle}" ColumnSpacing="10" Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="auto"/>
                 <ColumnDefinition Width="auto"/>
@@ -62,14 +62,14 @@
                 <SymbolIcon Symbol="More"/>
                 <winui:DropDownButton.Flyout>
                     <MenuFlyout Placement="BottomEdgeAlignedRight">
-                        <MenuFlyoutItem Text="Settings">
+                        <MenuFlyoutItem x:Uid="Settings" IsEnabled="False">
                             <MenuFlyoutItem.Icon>
                                 <SymbolIcon Symbol="Setting"/>
                             </MenuFlyoutItem.Icon>
                         </MenuFlyoutItem>
-                        <MenuFlyoutItem Text="About">
+                        <MenuFlyoutItem x:Uid="About" Click="Help_Clicked">
                             <MenuFlyoutItem.Icon>
-                                <SymbolIcon Symbol="Message"/>
+                                <SymbolIcon Symbol="Help"/>
                             </MenuFlyoutItem.Icon>
                         </MenuFlyoutItem>
                     </MenuFlyout>
@@ -77,62 +77,14 @@
             </winui:DropDownButton>
         </Grid>
 
-        <ScrollViewer ScrollViewer.VerticalScrollMode="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto" Grid.Row="1">
+        <ScrollViewer ScrollViewer.VerticalScrollMode="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto" Grid.Row="2">
             <StackPanel Orientation="Vertical" Margin="10,0,0,0" Name="ScrollPanelContent">
                 <TextBlock x:Uid="PopularMovies" Margin="0,0,0,10"/>
-                <ListView ItemsSource="{Binding PopularMovies}" SelectionMode="None" Style="{StaticResource MediaContentListViewStyle}">
-                    <ListView.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <ItemsStackPanel Orientation="Horizontal"/>
-                        </ItemsPanelTemplate>
-                    </ListView.ItemsPanel>
-                    <ListView.ItemTemplate>
-                        <DataTemplate x:DataType="models:Movie">
-                            <StackPanel Orientation="Vertical" Tapped="PopularPanel_Tapped" Width="170" HorizontalAlignment="Center" Spacing="15">
-                                <Border CornerRadius="4">
-                                    <Image Source="{Binding PosterPath, Converter={StaticResource StringToUriConverter}}" Tag="{Binding PosterPath}"/>
-                                </Border>
-                                <TextBlock Text="{Binding Title}" TextAlignment="Center" TextWrapping="Wrap" MaxLines="2"/>
-                            </StackPanel>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                    <ListView.Footer>
-                        <Button VerticalAlignment="Stretch" Background="Transparent" Width="170" Command="{Binding PopularsLoadMoreCommand}">
-                            <StackPanel Spacing="10">
-                                <SymbolIcon Symbol="Download"/>
-                                <TextBlock TextWrapping="Wrap" TextAlignment="Center" x:Uid="LoadMore"/>
-                            </StackPanel>
-                        </Button>
-                    </ListView.Footer>
-                </ListView>
+                <components:MediaListView Medias="{Binding PopularMovies}" LoadMoreCommand="{Binding PopularsLoadMoreCommand}" MediaTapped="PopularPanel_Tapped"/>
                 <winui:ProgressBar IsIndeterminate="True" Visibility="{Binding PopularsLoading, Converter={StaticResource BooleanToVisibilityConverter}}"/>
 
                 <TextBlock x:Uid="TopRatedMovies" Margin="0,20,0,10"/>
-                <ListView ItemsSource="{Binding TopRatedMovies}" SelectionMode="None" Style="{StaticResource MediaContentListViewStyle}">
-                    <ListView.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <ItemsStackPanel Orientation="Horizontal"/>
-                        </ItemsPanelTemplate>
-                    </ListView.ItemsPanel>
-                    <ListView.ItemTemplate>
-                        <DataTemplate x:DataType="models:Movie">
-                            <StackPanel Orientation="Vertical" Tapped="PopularPanel_Tapped" Width="170" HorizontalAlignment="Center" Spacing="15">
-                                <Border CornerRadius="4">
-                                    <Image Source="{Binding PosterPath, Converter={StaticResource StringToUriConverter}}" Tag="{Binding PosterPath}"/>
-                                </Border>
-                                <TextBlock Text="{Binding Title}" TextAlignment="Center" TextWrapping="Wrap" MaxLines="2"/>
-                            </StackPanel>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                    <ListView.Footer>
-                        <Button VerticalAlignment="Stretch" Background="Transparent" Width="170" Command="{Binding TopRatedLoadMoreCommand}">
-                            <StackPanel Spacing="10">
-                                <SymbolIcon Symbol="Download"/>
-                                <TextBlock TextWrapping="Wrap" TextAlignment="Center" x:Uid="LoadMore"/>
-                            </StackPanel>
-                        </Button>
-                    </ListView.Footer>
-                </ListView>
+                <components:MediaListView Medias="{Binding TopRatedMovies}" LoadMoreCommand="{Binding TopRatedLoadMoreCommand}" MediaTapped="PopularPanel_Tapped"/>
                 <winui:ProgressBar IsIndeterminate="True" Visibility="{Binding TopRatedLoading, Converter={StaticResource BooleanToVisibilityConverter}}"/>
             </StackPanel>
         </ScrollViewer>

@@ -93,26 +93,31 @@ namespace MediaFollower.ViewModels
 
         public MainViewModel() : base()
         {
-            _popularsLoadMoreCommand = new CommandBase(p => !_popularsLoading, p =>
+            _popularsLoadMoreCommand = new CommandBase(p => !_popularsLoading, async p =>
             {
                 PopularsLoading = true;
                 _popularsPage++;
-                SetPopularMovies();
+                await SetPopularMovies();
             });
 
-            _topRatedLoadMoreCommand = new CommandBase(p => !_topRatedLoading, p =>
+            _topRatedLoadMoreCommand = new CommandBase(p => !_topRatedLoading, async p =>
             {
                 TopRatedLoading = true;
                 _topRatedPage++;
-                SetTopRatedMovies();
+                await SetTopRatedMovies();
             });
 
-            SetUserName();
-            SetPopularMovies();
-            SetTopRatedMovies();
+            SetupUI();
         }
 
-        private async void SetUserName()
+        private async void SetupUI()
+        {
+            await SetUserName();
+            await SetPopularMovies();
+            await SetTopRatedMovies();
+        }
+
+        private async Task SetUserName()
         {
             var users = await User.FindAllAsync();
             var current = users.Where(p => p.AuthenticationStatus == UserAuthenticationStatus.LocallyAuthenticated &&
@@ -130,14 +135,14 @@ namespace MediaFollower.ViewModels
             }
         }
 
-        private async void SetPopularMovies()
+        private async Task SetPopularMovies()
         {
             var movies = await Api.GetPopulars<Movie>(_popularsPage, UserLanguage);
             _popularMovies.AddRange(movies.Results);
             PopularsLoading = false;
         }
 
-        private async void SetTopRatedMovies()
+        private async Task SetTopRatedMovies()
         {
             var movies = await Api.GetTopRated<Movie>(_topRatedPage, UserLanguage);
             _topRatedMovies.AddRange(movies.Results);

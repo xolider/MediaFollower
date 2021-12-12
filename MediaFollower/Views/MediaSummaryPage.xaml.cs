@@ -1,4 +1,5 @@
 ﻿using MediaFollower.Models;
+using MediaFollower.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -28,19 +29,29 @@ namespace MediaFollower.Views
     /// </summary>
     public sealed partial class MediaSummaryPage : Page
     {
+        private MediaSummaryViewModel _vm;
         public MediaSummaryPage()
         {
             this.InitializeComponent();
 
+            _vm = this.DataContext as MediaSummaryViewModel;
+
+            /*
             var titleBar = CoreApplication.GetCurrentView().TitleBar;
             titleBar.LayoutMetricsChanged += TitleBar_LayoutMetricsChanged;
 
             TitleBar_LayoutMetricsChanged(titleBar, null);
+            */
+
+            CoreApplicationViewTitleBar coreTitleBar = CoreApplication.GetCurrentView().TitleBar;
+
+            TitleBar.Height = coreTitleBar.Height;
+            Window.Current.SetTitleBar(MainTitleBar);
         }
 
         private void TitleBar_LayoutMetricsChanged(CoreApplicationViewTitleBar sender, object args)
         {
-            BackButton.Margin = new Thickness(10, sender.Height, 0, 0);
+            //BackButton.Margin = new Thickness(10, sender.Height, 0, 0);
         }
 
         private void BackButton_Click(object sender, RoutedEventArgs e)
@@ -54,8 +65,9 @@ namespace MediaFollower.Views
             base.OnNavigatedTo(e);
 
             Movie movie = e.Parameter as Movie;
-            PosterImage.Source = new BitmapImage(StringToUriConverter.Convert(movie.PosterPath, typeof(Uri), this.DataContext, null) as Uri);
+            PosterImage.Source = StringToUriConverter.Convert(movie.PosterPath, typeof(BitmapImage), null, null) as BitmapImage;
             MediaTitle.Text = movie.Title;
+            _vm.Id = movie.Id;
 
             var anim = ConnectedAnimationService.GetForCurrentView().GetAnimation("MediaForwardAnimation");
             if(anim != null)

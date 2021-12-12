@@ -55,8 +55,8 @@ namespace MediaFollower
             coreTitleBar.ExtendViewIntoTitleBar = true;
 
             var titleBar = ApplicationView.GetForCurrentView().TitleBar;
+            titleBar.ButtonHoverForegroundColor = Colors.Transparent;
             titleBar.ButtonBackgroundColor = Colors.Transparent;
-            titleBar.ButtonInactiveBackgroundColor = Colors.Transparent;
 
             Frame rootFrame = Window.Current.Content as Frame;
 

@@ -9,7 +9,7 @@
   <Identity
     Name="18927ClmentVicart.MediaFollower"
     Publisher="CN=64454EDD-E976-4B26-ACAD-70EE0BF04896"
-    Version="1.0.1.0" />
+    Version="1.0.3.0" />
 
   <mp:PhoneIdentity PhoneProductId="c215fbcb-df7f-496c-ba10-a9284c880f70" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 

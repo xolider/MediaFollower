@@ -41,6 +41,14 @@ namespace TMDBAPI
             return Deserialize<TMDBResult<T>>(response.Content, converter);
         }
 
+        public async Task<T> GetDetails<T>(int id, string lang = "en-US", JsonConverter converter = null)
+        {
+            var request = new RestRequest("movie/" + id);
+            request.AddQueryParameter("language", lang);
+            var response = await _client.ExecuteAsync(request, Method.GET);
+            return Deserialize<T>(response.Content, converter);
+        }
+
         private T Deserialize<T>(string content, JsonConverter converter)
         {
             var converters = new List<JsonConverter>();

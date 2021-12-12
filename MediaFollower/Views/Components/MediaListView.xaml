@@ -1,0 +1,57 @@
+﻿<UserControl
+    x:Class="MediaFollower.Views.Components.MediaListView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:MediaFollower.Views.Components"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:viewmodels="using:MediaFollower.ViewModels" xmlns:models="using:MediaFollower.Models" xmlns:converters="using:MediaFollower.Converters"
+    mc:Ignorable="d"
+    d:DesignHeight="300"
+    d:DesignWidth="400"
+    x:Name="MediaListViewControl">
+
+    <UserControl.Resources>
+        <Style TargetType="ListView" x:Key="MediaContentListViewStyle">
+            <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto"/>
+            <Setter Property="ScrollViewer.HorizontalScrollMode" Value="Enabled"/>
+            <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Disabled"/>
+            <Setter Property="ScrollViewer.VerticalScrollMode" Value="Disabled"/>
+            <Setter Property="SelectionMode" Value="None"/>
+            <Setter Property="Background" Value="{ThemeResource LayerFillColorDefaultBrush}"/>
+            <Setter Property="CornerRadius" Value="8"/>
+            <Setter Property="Margin" Value="0,0,10,0"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="BorderBrush" Value="{ThemeResource CardStrokeColorDefaultBrush}"/>
+            <Setter Property="Padding" Value="15"/>
+        </Style>
+
+        <converters:StringToUriConverter x:Name="StringToUriConverter"/>
+    </UserControl.Resources>
+
+    <ListView ItemsSource="{x:Bind Medias}" SelectionMode="None" Style="{StaticResource MediaContentListViewStyle}">
+        <ListView.ItemsPanel>
+            <ItemsPanelTemplate>
+                <ItemsStackPanel Orientation="Horizontal"/>
+            </ItemsPanelTemplate>
+        </ListView.ItemsPanel>
+        <ListView.ItemTemplate>
+            <DataTemplate x:DataType="models:Movie">
+                <StackPanel Orientation="Vertical" Tapped="StackPanel_Tapped" Width="170" HorizontalAlignment="Center" Spacing="15"
+                                        PointerEntered="ImagePanel_PointerEntered" PointerExited="StackPanel_PointerExited">
+                    <Border CornerRadius="4">
+                        <Image CacheMode="BitmapCache" Source="{x:Bind PosterPath, Converter={StaticResource StringToUriConverter}}" Tag="{x:Bind PosterPath}"/>
+                    </Border>
+                    <TextBlock Text="{x:Bind Title}" TextAlignment="Center" TextWrapping="Wrap" MaxLines="2"/>
+                </StackPanel>
+            </DataTemplate>
+        </ListView.ItemTemplate>
+        <ListView.Footer>
+            <Button VerticalAlignment="Stretch" Background="Transparent" Width="170" Command="{x:Bind LoadMoreCommand}">
+                <StackPanel Spacing="10">
+                    <SymbolIcon Symbol="Download"/>
+                    <TextBlock TextWrapping="Wrap" TextAlignment="Center" x:Uid="LoadMore"/>
+                </StackPanel>
+            </Button>
+        </ListView.Footer>
+    </ListView>
+</UserControl>
